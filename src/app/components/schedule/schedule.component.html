@@ -1,0 +1,33 @@
+<p-card header="Match Schedule">
+  <p-table [value]="matches()" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Team A</th>
+        <th>Team B</th>
+        <th>Date</th>
+        <th>Sport</th>
+        <th>Status</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-match>
+      <tr>
+        <td>{{ getTeamName(match.teamA) }}</td>
+        <td>{{ getTeamName(match.teamB) }}</td>
+        <td>{{ match.date | date: 'medium' }}</td>
+        <td><p-tag severity="info" value="{{ match.sport }}"></p-tag></td>
+        <td>
+          <p-tag
+            [value]="match.status"
+            [severity]="
+              match.status === 'Completed'
+                ? 'success'
+                : match.status === 'Ongoing'
+                ? 'warn'
+                : 'info'
+            "
+          ></p-tag>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

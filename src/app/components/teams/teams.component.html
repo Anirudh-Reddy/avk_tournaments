@@ -1,0 +1,37 @@
+<div class="teams-container">
+  <div class="team-controls">
+    <label>Select Sport</label>
+    <p-dropdown
+      [options]="sports"
+      [(ngModel)]="selectedSport"
+      placeholder="Choose a sport"
+      (onChange)="filterTeams()"
+      class="sport-dropdown"
+    ></p-dropdown>
+  </div>
+
+  <div class="team-grid">
+    <div
+      class="team-card"
+      *ngFor="let team of filteredTeams()"
+      (click)="toggleExpand(team._id)"
+      
+    >
+      <div class="team-header">
+        <h3>{{ team.name }}</h3>
+        <p-tag [value]="team.sport" severity="info"></p-tag>
+      </div>
+
+      <div class="team-info">
+        <i class="pi pi-users player-icon"></i>
+        <span>{{ team.players.length }} Players</span>
+      </div>
+      <div class="team-details">
+        <p class="section-title">Players</p>
+        <ul>
+          <li *ngFor="let player of team.players">{{ player }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

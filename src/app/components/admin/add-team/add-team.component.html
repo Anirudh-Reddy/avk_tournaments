@@ -1,0 +1,66 @@
+<div class="team-form-container">
+  <h2>Create a New Team</h2>
+
+  <div class="form-group">
+    <label for="teamName">Team Name</label>
+    <input
+      pInputText
+      id="teamName"
+      placeholder="e.g. The Smashers"
+      [(ngModel)]="team.name"
+      autocomplete="off"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="sport">Sport</label>
+    <input
+      pInputText
+      id="sport"
+      placeholder="e.g. Volleyball"
+      [(ngModel)]="team.sport"
+      autocomplete="off"
+    />
+  </div>
+
+  <div class="form-group">
+    <label>Players</label>
+    <div class="player-input-row">
+      <input
+        pInputText
+        placeholder="Enter player name"
+        [(ngModel)]="newPlayer"
+        (keyup.enter)="addPlayer()"
+      />
+      <button
+        pButton
+        icon="pi pi-plus"
+        class="p-button-sm"
+        label="Add"
+        (click)="addPlayer()"
+        [disabled]="!newPlayer"
+      ></button>
+    </div>
+
+    <div class="players-chip-list">
+      <span *ngFor="let player of team.players" class="chip">
+        {{ player }}
+        <button
+          type="button"
+          pButton
+          icon="pi pi-times"
+          class="p-button-rounded p-button-text p-button-danger"
+          (click)="removePlayer(player)"
+        ></button>
+      </span>
+    </div>
+  </div>
+
+  <button
+    pButton
+    label="Create Team"
+    class="p-button-success"
+    (click)="submitTeam()"
+    [disabled]="!team.name || !team.sport || team.players.length === 0"
+  ></button>
+</div>

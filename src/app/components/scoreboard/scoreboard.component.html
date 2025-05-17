@@ -1,0 +1,103 @@
+<div class="scoreboard-container">
+  <div class="scoreboard-controls">
+    <label class="mx-1">Select Sport</label>
+    <p-dropdown
+      [options]="sports"
+      [(ngModel)]="selectedSport"
+      (onChange)="filterMatches()"
+      class="sport-dropdown"
+    ></p-dropdown>
+
+    <!-- <div class="view-toggle">
+      <button
+        pButton
+        label="Scoreboard"
+        (click)="viewMode = 'scoreboard'"
+        [class.active]="viewMode === 'scoreboard'"
+        class="p-button-sm"
+      ></button>
+      <button
+        pButton
+        label="Full Summary"
+        (click)="viewMode = 'summary'"
+        [class.active]="viewMode === 'summary'"
+        class="p-button-sm"
+      ></button>
+    </div> -->
+  </div>
+
+  <!-- 🟢 Scoreboard view -->
+  <!-- <p-table
+  *ngIf="viewMode === 'scoreboard'"
+  [value]="teamScores()"
+  [paginator]="false"
+  responsiveLayout="scroll"
+  sortMode="multiple"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="team">Team <p-sortIcon field="team" /></th>
+      <th pSortableColumn="points">Points <p-sortIcon field="points" /></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-score>
+    <tr>
+      <td>{{ score.team }}</td>
+      <td>{{ score.points }}</td>
+    </tr>
+  </ng-template>
+</p-table> -->
+
+<div class="scoreboard-wrapper">
+  <p class="text-xl font-bold text-center">Team Standings</p>
+  <table class="scoreboard-html-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Team</th>
+        <th>Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let score of teamScores(); let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ score.team }}</td>
+        <td>{{ score.points }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+  <!-- 📋 Full Summary view -->
+  <p-table
+    *ngIf="viewMode === 'summary'"
+    [value]="filteredMatches()"
+    [paginator]="true"
+    [rows]="10"
+    sortMode="multiple"
+    responsiveLayout="scroll"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="teamA">Team A <p-sortIcon field="teamA" /></th>
+        <th pSortableColumn="scoreA">Score A <p-sortIcon field="scoreA" /></th>
+        <th pSortableColumn="teamB">Team B <p-sortIcon field="teamB" /></th>
+        <th pSortableColumn="scoreB">Score B <p-sortIcon field="scoreB" /></th>
+        <th>Status</th>
+        <th pSortableColumn="date">Date <p-sortIcon field="date" /></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-match>
+      <tr>
+        <td>{{ match.teamA }}</td>
+        <td>{{ match.scoreA }}</td>
+        <td>{{ match.teamB }}</td>
+        <td>{{ match.scoreB }}</td>
+        <td><p-tag value="Completed" severity="success"></p-tag></td>
+        <td>{{ formatDate(match.date) }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

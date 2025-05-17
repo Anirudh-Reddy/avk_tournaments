@@ -1,0 +1,31 @@
+import { Component, OnInit, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ApiService } from '../../services/api.service';
+import { Match } from '../../models/match.model';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { CardModule } from 'primeng/card';
+
+@Component({
+  selector: 'app-schedule',
+  standalone: true,
+  imports: [CommonModule, TableModule, TagModule, CardModule],
+  templateUrl: './schedule.component.html',
+  styleUrls: ['./schedule.component.scss']
+})
+export class ScheduleComponent implements OnInit {
+  matches = signal<Match[]>([]);
+
+  constructor(private api: ApiService) {}
+
+  ngOnInit(): void {
+    this.api.getMatches().subscribe((data) => {
+      this.matches.set(data);
+    });
+  }
+
+  getTeamName(team: string | { name: string }): string {
+    console.log('tem :',team)
+    return typeof team !== 'string' ? 'Team' : team;
+  }
+}

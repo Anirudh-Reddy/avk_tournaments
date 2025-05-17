@@ -1,0 +1,85 @@
+<p-tabView>
+  <p-tabPanel header="Ongoing">
+    <div class="live-score-container">
+      <ng-container *ngFor="let match of ongoingMatches()">
+        <div class="match-card">
+          <div class="teams">
+            <span class="team">{{ match.teamA }}</span>
+            <span class="score-badge">{{ match.scoreA }}</span>
+          </div>
+          <div class="teams">
+            <span class="team">{{ match.teamB }}</span>
+            <span class="score-badge">{{ match.scoreB }}</span>
+          </div>
+          <div class="status Ongoing">Ongoing</div>
+          <div class="date">
+            {{ formatDate(match.date) }} <span>&#64;</span> {{ formatTime(match.date) }}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </p-tabPanel>
+
+  <p-tabPanel header="Scheduled">
+    <div class="live-score-container">
+      <ng-container *ngFor="let match of scheduledMatches()">
+        <div class="match-card">
+          <div class="teams">
+            <span class="team">{{ match.teamA }}</span>
+            <span class="score-badge">{{ match.scoreA }}</span>
+          </div>
+          <div class="teams">
+            <span class="team">{{ match.teamB }}</span>
+            <span class="score-badge">{{ match.scoreB }}</span>
+          </div>
+          <div class="status Scheduled">Scheduled</div>
+          <div class="date">
+            {{ formatDate(match.date) }} <span>&#64;</span> {{ formatTime(match.date) }}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </p-tabPanel>
+
+  <p-tabPanel header="Completed">
+    <div class="live-score-container">
+      <ng-container *ngFor="let match of completedMatches()">
+        <div class="match-card">
+          <div class="teams">
+            <span class="team">{{ match.teamA }}</span>
+            <span class="score-badge">{{ match.scoreA }}</span>
+          </div>
+          <div class="teams">
+            <span class="team">{{ match.teamB }}</span>
+            <span class="score-badge">{{ match.scoreB }}</span>
+          </div>
+          <div class="status Completed">Completed</div>
+          <div class="date">
+            {{ formatDate(match.date) }} <span>&#64;</span> {{ formatTime(match.date) }}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </p-tabPanel>
+
+  <p-tabPanel header="Cancelled">
+    <div class="live-score-container">
+      <ng-container *ngFor="let match of cancelledMatches()">
+        <div class="match-card">
+          <div class="teams">
+            <span class="team">{{ match.teamA }}</span>
+            <span class="score-badge">{{ match.scoreA }}</span>
+          </div>
+          <div class="teams">
+            <span class="team">{{ match.teamB }}</span>
+            <span class="score-badge">{{ match.scoreB }}</span>
+          </div>
+          <div class="status Cancelled">Cancelled</div>
+          <div class="date">
+            {{ formatDate(match.date) }} <span>&#64;</span> {{ formatTime(match.date) }}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </p-tabPanel>
+</p-tabView>

@@ -1,0 +1,64 @@
+.admin-wrapper {
+  background: #f9fafb;
+  min-height: 100vh;
+
+  .admin-header {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: #1f2937;
+  }
+
+  ::ng-deep .custom-tabview {
+    .p-tabview-nav {
+      background: white;
+      border-radius: 12px 12px 0 0;
+      padding: 0 1rem;
+
+      li {
+        margin-right: 1rem;
+        border: none;
+
+        .p-tabview-nav-link {
+          padding: 1rem 1.25rem;
+          font-weight: 600;
+          color: #374151;
+          border-radius: 10px 10px 0 0;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background: #f3f4f6;
+          }
+
+          &.p-highlight {
+            background: #2563eb;
+            color: white;
+          }
+        }
+      }
+    }
+
+    .p-tabview-panels {
+      background: white;
+      padding: 2rem;
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+      animation: fadeIn 0.3s ease;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.admin-tabs-section{
+
+}

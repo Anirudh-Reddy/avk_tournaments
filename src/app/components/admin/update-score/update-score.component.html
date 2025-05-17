@@ -1,0 +1,58 @@
+<p-toast></p-toast>
+
+<div class="update-score-container">
+  <h2>Update Match Score</h2>
+
+  <div class="form-group">
+    <label>Select Sport</label>
+    <p-dropdown
+      [options]="sports"
+      [(ngModel)]="selectedSport"
+      placeholder="Choose a sport"
+      (onChange)="filterMatches()"
+      class="full-width"
+    ></p-dropdown>
+  </div>
+
+  <div class="form-group match-selector">
+    <label>Select Match</label>
+    <p-dropdown
+      [options]="filteredMatches()"
+      optionLabel="label"
+      placeholder="Select a match"
+      (onChange)="onSelect($event.value)"
+      [filter]="true"
+      [showClear]="true"
+      class="match-dropdown"
+      [panelStyleClass]="'dropdown-panel-responsive'"
+    ></p-dropdown>
+  </div>
+
+  <ng-container *ngIf="selectedMatch">
+    <div class="score-grid">
+      <div class="form-group">
+        <label>Score A ({{ getName(selectedMatch.teamA) }})</label>
+        <p-inputNumber [(ngModel)]="selectedMatch.scoreA" [min]="0" inputId="scoreA" class="full-width" />
+      </div>
+
+      <div class="form-group">
+        <label>Score B ({{ getName(selectedMatch.teamB) }})</label>
+        <p-inputNumber [(ngModel)]="selectedMatch.scoreB" [min]="0" inputId="scoreB" class="full-width" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Status</label>
+      <p-dropdown
+        [(ngModel)]="selectedMatch.status"
+        [options]="['Scheduled', 'Ongoing', 'Completed', 'Cancelled']"
+        placeholder="Select Status"
+        class="full-width"
+      ></p-dropdown>
+    </div>
+
+    <div class="form-actions">
+      <button pButton type="button" label="Update Score" class="p-button-warning" (click)="updateScore()"></button>
+    </div>
+  </ng-container>
+</div>

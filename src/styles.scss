@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+  margin: 0;
+  padding: 0;
+}
+
+.p-tabview-nav {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  padding: 1rem;
+}

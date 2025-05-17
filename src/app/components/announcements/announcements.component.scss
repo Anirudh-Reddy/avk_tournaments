@@ -1,0 +1,34 @@
+.announcement-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.announcement-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.announcement-body {
+  font-size: 1rem;
+}
+
+.announcement-meta {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.creator {
+  font-style: italic;
+}
+
+.no-announcements {
+  text-align: center;
+  margin-top: 2rem;
+  color: #aaa;
+  font-style: italic;
+}

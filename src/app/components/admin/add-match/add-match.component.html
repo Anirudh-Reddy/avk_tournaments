@@ -1,0 +1,69 @@
+<div class="match-form-container">
+  <h2>Schedule a Match</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="match-form-grid">
+
+    <div class="form-group">
+      <label for="teamA">Team A</label>
+      <p-dropdown
+        [options]="teams"
+        optionLabel="name"
+        placeholder="Select Team A"
+        id="teamA"
+        formControlName="teamA"
+      ></p-dropdown>
+    </div>
+
+    <div class="form-group">
+      <label for="teamB">Team B</label>
+      <p-dropdown
+        [options]="teams"
+        optionLabel="name"
+        placeholder="Select Team B"
+        id="teamB"
+        formControlName="teamB"
+      ></p-dropdown>
+    </div>
+
+    <div class="form-group">
+      <label for="date">Match Date & Time</label>
+      <p-calendar
+        formControlName="date"
+        [showTime]="true"
+        hourFormat="12"
+        id="date"
+      ></p-calendar>
+    </div>
+
+    <div class="form-group">
+      <label for="sport">Sport</label>
+      <input
+        type="text"
+        id="sport"
+        pInputText
+        formControlName="sport"
+        placeholder="e.g. Volleyball"
+      />
+    </div>
+
+    <div class="form-group score-field">
+      <label>Score A</label>
+      <p-inputNumber formControlName="scoreA" inputId="scoreA" [min]="0" mode="decimal" showButtons></p-inputNumber>
+    </div>
+
+    <div class="form-group score-field">
+      <label>Score B</label>
+      <p-inputNumber formControlName="scoreB" inputId="scoreB" [min]="0" mode="decimal" showButtons></p-inputNumber>
+    </div>
+
+    <button
+      pButton
+      label="Add Match"
+      type="submit"
+      class="p-button-primary"
+      [disabled]="form.invalid"
+    ></button>
+  </form>
+
+  <p-toast></p-toast>
+</div>
