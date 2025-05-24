@@ -1,0 +1,24 @@
+<div class="gallery-container">
+  <h2>🏆 Tournament Gallery</h2>
+
+  <div class="photo-grid">
+    <div
+      class="photo-card"
+      *ngFor="let photo of photos()"
+      (click)="openImage(photo)"
+    >
+      <img [src]="photo.image" alt="Tournament Image" />
+      <p class="caption" *ngIf="selectedImage.caption">{{ photo.caption }}</p>
+    </div>
+  </div>
+
+  <!-- Modal Viewer -->
+  <div class="modal-backdrop" *ngIf="selectedImage" (click)="selectedImage = null">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <img [src]="selectedImage.image" alt="Full View" />
+      <p class="caption" *ngIf="selectedImage.caption">{{ selectedImage.caption }}</p>
+    </div>
+  </div>
+</div>
+
+<app-loading *ngIf="showLoader"></app-loading>

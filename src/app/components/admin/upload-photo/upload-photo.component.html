@@ -1,0 +1,18 @@
+<p-toast></p-toast>
+
+<div class="upload-container">
+  <h2>📸 Upload Tournament Photo</h2>
+
+  <input type="file" accept="image/*" (change)="onImageChange($event)" />
+  <textarea
+    pInputTextarea
+    rows="3"
+    [(ngModel)]="caption"
+    placeholder="Enter optional caption..."
+  ></textarea>
+
+  <img *ngIf="base64Image" [src]="base64Image" class="preview" />
+
+  <button pButton label="Upload" (click)="upload()" [disabled]="!base64Image"></button>
+</div>
+<app-loading *ngIf="showLoader"></app-loading>

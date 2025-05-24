@@ -1,15 +1,10 @@
-<p-menubar [model]="[
-  { label: 'Home', routerLink: '/' },
-  { label: 'Teams', routerLink: '/teams' },
-  { label: 'Schedule', routerLink: '/schedule' },
-  { label: 'Live Score', routerLink: '/live-score' },
-  { label: 'Announcements', routerLink: '/announcements' },
-  { label: 'Scoreboard', routerLink: '/scoreboard' }
-]">
+<p-menubar [model]="items">
   <ng-template pTemplate="start">
     <div class="mx-2">
-        <img class="avk_logo" width="70" height="70" src="svgs/AVK Square Logo.svg" alt="Logo">
+      <a routerLink="/"><img class="avk_logo" width="70" height="70" src="svgs/AVK Square Logo.svg" alt="Logo"></a>
     </div>
-    <span class="text-lg font-medium">AVK Tournaments</span>
+    <a routerLink="/" style="text-decoration: none;">
+      <span class="text-lg font-medium">AVK Tournaments</span>
+    </a>
   </ng-template>
 </p-menubar>

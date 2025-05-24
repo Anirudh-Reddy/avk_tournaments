@@ -29,5 +29,9 @@
         </td>
       </tr>
     </ng-template>
+    
   </p-table>
+  <ng-template [ngIf]="matches().length === 0">
+      <p class="no-announcements">No schedules yet.</p>
+  </ng-template>
 </p-card>

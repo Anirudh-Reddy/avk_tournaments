@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
@@ -6,18 +6,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
   selector: 'app-loading',
   standalone: true,
   imports: [CommonModule, ProgressSpinnerModule],
-  template: `
-    <div class="loading-container">
-      <p-progressSpinner strokeWidth="4" animationDuration=".5s"></p-progressSpinner>
-    </div>
-  `,
-  styles: [`
-    .loading-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 50vh;
-    }
-  `]
+  templateUrl: './loading.component.html',
+  styleUrl: './loading.component.scss'
 })
-export class LoadingComponent {}
+export class LoadingComponent {
+   @Input() message: string = 'Loading, please wait...';
+}

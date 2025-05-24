@@ -4,17 +4,18 @@ import { ApiService } from '../../services/api.service';
 import { SocketService } from '../../services/socket.service';
 import { Match } from '../../models/match.model';
 import { TabViewModule } from 'primeng/tabview';
+import { LoadingComponent } from '../../shared/loading/loading.component';
 
 @Component({
   selector: 'app-live-score',
   standalone: true,
-  imports: [CommonModule, TabViewModule],
+  imports: [CommonModule, TabViewModule, LoadingComponent],
   templateUrl: './live-score.component.html',
   styleUrls: ['./live-score.component.scss']
 })
 export class LiveScoreComponent implements OnInit {
   matches = signal<Match[]>([]);
-
+  showLoader= false
   ongoingMatches = computed(() =>
     this.matches().filter(m => m.status === 'Ongoing')
   );
@@ -37,7 +38,10 @@ export class LiveScoreComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.api.getMatches().subscribe((data) => this.matches.set(data));
+    this.showLoader = true
+    this.api.getMatches().subscribe((data) => {this.matches.set(data)
+      this.showLoader = false
+    });
 
     this.socketService.onScoreUpdate((updatedMatch: Match) => {
       const updated = this.matches().map(m =>

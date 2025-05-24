@@ -14,13 +14,13 @@
 
   <div class="form-group">
     <label for="sport">Sport</label>
-    <input
-      pInputText
+    <p-dropdown
       id="sport"
-      placeholder="e.g. Volleyball"
+      [options]="sports"
       [(ngModel)]="team.sport"
-      autocomplete="off"
-    />
+      placeholder="Select a sport"
+      class="sport-dropdown"
+    ></p-dropdown>
   </div>
 
   <div class="form-group">

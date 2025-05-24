@@ -5,11 +5,13 @@ import { Team } from '../../models/team.model';
 import { DropdownModule } from 'primeng/dropdown';
 import { TagModule } from 'primeng/tag';
 import { FormsModule } from '@angular/forms';
+import { LoadingService } from '../../services/loading.service';
+import { LoadingComponent } from '../../shared/loading/loading.component';
 
 @Component({
   selector: 'app-teams',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule, TagModule],
+  imports: [CommonModule, FormsModule, DropdownModule, TagModule, LoadingComponent],
   templateUrl: './teams.component.html',
   styleUrls: ['./teams.component.scss']
 })
@@ -17,14 +19,21 @@ export class TeamsComponent implements OnInit {
   teams = signal<Team[]>([]);
   selectedSport = 'Volleyball';
   expandedTeam = signal<string | null>(null);
-
+  showLoader:boolean = false;
 
   sports = ['Volleyball', 'Cricket', 'Football'];
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService, public loadingService: LoadingService) {}
 
   ngOnInit(): void {
-    this.api.getTeams().subscribe((data) => this.teams.set(data));
+    this.showLoader = true;
+    this.api.getTeams().subscribe({
+      next: (data) => {
+        this.teams.set(data)
+        this.showLoader = false;
+      },
+      error : () => {this.showLoader = false;}
+    });
   }
 
   filteredTeams = computed(() =>
@@ -40,4 +49,9 @@ export class TeamsComponent implements OnInit {
     console.log(this.expandedTeam())
   }
 
+  getPlayerImage(playerName: string): string {
+    const safeName = playerName.toLowerCase().replace(/ /g, '-');
+    return `players/image.png`;
+    // return  `players/${safeName}.jpg`;
+  }
 }

@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://avk-tournaments-service.onrender.com/api',
-  socketUrl: 'https://avk-tournaments-service.onrender.com/'
+  apiUrl: 'http://localhost:3000/api',
+  socketUrl: 'http://localhost:3000'
 };

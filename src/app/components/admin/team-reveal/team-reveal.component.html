@@ -1,0 +1,37 @@
+<div class="reveal-page">
+  <h1 class="title">AVK Grand Team Reveal 🎉</h1>
+
+  <div class="reveal-buttons">
+    <button
+      *ngFor="let team of teams; index as i"
+      (click)="revealTeam(i)"
+      [disabled]="activeTeamIndex === i"
+    >
+      🎬 Reveal {{ team.name }}
+    </button>
+  </div>
+
+  <div class="team-display" *ngIf="activeTeamIndex !== null">
+    <h2 class="team-name">{{ teams[activeTeamIndex].name }}</h2>
+
+    <audio id="bgm-{{ activeTeamIndex }}" preload="auto">
+      <source src="music/background-inspire-epic.mp3" type="audio/mpeg" />
+    </audio>
+
+    <div class="players">
+      <div
+        class="player-card"
+        *ngFor="let player of teams[activeTeamIndex].players.slice(0, revealedPlayerCount); index as p"
+        [style.animationDelay]="p * 100 + 'ms'"
+      >
+        <img [src]="player.image" [alt]="player.name" />
+        <div class="player-name">{{ player.name }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<audio  preload="auto" controls>
+    <source src="music/background-inspire-epic.mp3" type="audio/mpeg" />
+</audio>

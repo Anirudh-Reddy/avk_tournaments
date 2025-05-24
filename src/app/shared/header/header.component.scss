@@ -1,4 +1,6 @@
-:host {
-  width: 100%;
-  display: block;
+:host ::ng-deep .p-menubar .p-menuitem.active-tab > .p-menuitem-content {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+  border-radius: 4px;
+  font-weight: 600;
 }

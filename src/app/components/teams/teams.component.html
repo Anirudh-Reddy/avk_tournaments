@@ -10,28 +10,48 @@
     ></p-dropdown>
   </div>
 
-  <div class="team-grid">
-    <div
+  <div class="team-stack">
+    @if (filteredTeams().length) {
+      <div
       class="team-card"
       *ngFor="let team of filteredTeams()"
-      (click)="toggleExpand(team._id)"
-      
+      [class.expanded]="expandedTeam() === team._id"
     >
-      <div class="team-header">
-        <h3>{{ team.name }}</h3>
+      <!-- Clickable Summary Header -->
+      <div class="team-summary" (click)="toggleExpand(team._id)">
+        <div class="team-name">{{ team.name }}</div>
         <p-tag [value]="team.sport" severity="info"></p-tag>
+        <div class="player-count">
+          <i class="pi pi-users"></i>
+          {{ team.players.length }} Players
+        </div>
+        <i
+          class="pi pi-chevron-down toggle-icon"
+          [class.rotate]="expandedTeam() === team._id"
+        ></i>
       </div>
 
-      <div class="team-info">
-        <i class="pi pi-users player-icon"></i>
-        <span>{{ team.players.length }} Players</span>
-      </div>
-      <div class="team-details">
+      <!-- Accordion Body -->
+      <div class="team-details" *ngIf="expandedTeam() === team._id">
         <p class="section-title">Players</p>
-        <ul>
-          <li *ngFor="let player of team.players">{{ player }}</li>
-        </ul>
+        <div class="players-list">
+          <div class="player-card" *ngFor="let player of team.players">
+            <img
+              [src]="getPlayerImage(player)"
+              [alt]="player"
+              class="player-photo"
+              onerror="this.src='assets/images/default-avatar.png'"
+            />
+            <span class="player-name">{{ player }}</span>
+          </div>
+        </div>
       </div>
     </div>
+    }@else{
+      <h4>No Teams available</h4>
+    }
+    
   </div>
+
+  <app-loading *ngIf="showLoader"></app-loading>
 </div>

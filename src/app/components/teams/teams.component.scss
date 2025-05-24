@@ -2,17 +2,17 @@
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .team-controls {
+  max-width: 300px;
   display: flex;
   flex-direction: column;
-  max-width: 300px;
   gap: 0.5rem;
 
   label {
-    font-weight: 500;
+    font-weight: 600;
   }
 
   .sport-dropdown {
@@ -20,90 +20,103 @@
   }
 }
 
-.team-grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+.team-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .team-card {
   background: #ffffff;
   border-radius: 12px;
-  padding: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 0.5rem;
-  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s;
+  border-left: 4px solid #3b82f6;
 
-  &:hover {
-    transform: translateY(-4px);
+  &.expanded {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
   }
 
-  &.expanded {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-  }
-
-  .team-header {
+  .team-summary {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
+    padding: 1rem;
+    cursor: pointer;
+    gap: 0.75rem;
 
-    h3 {
-      margin: 0;
-      font-size: 1.2rem;
+    .team-name {
+      font-size: 1.1rem;
       font-weight: 600;
-      text-transform: capitalize;
+      flex-grow: 1;
+      color: #111827;
     }
-  }
 
-  .team-info {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    font-size: 0.9rem;
-    color: #4b5563;
+    .player-count {
+      font-size: 0.85rem;
+      color: #6b7280;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
 
-    .player-icon {
+    .toggle-icon {
       font-size: 1.2rem;
-      color: #2563eb;
+      transition: transform 0.3s ease;
+
+      &.rotate {
+        transform: rotate(180deg);
+      }
     }
   }
 
   .team-details {
-    margin-top: 0.75rem;
-    padding-top: 0.75rem;
+    padding: 0 1rem 1rem 1rem;
     border-top: 1px solid #e5e7eb;
-    font-size: 0.9rem;
-    animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.3s ease;
 
     .section-title {
       font-weight: 600;
-      margin-bottom: 0.5rem;
+      margin: 1rem 0 0.5rem 0;
     }
 
-    ul {
-      padding-left: 1rem;
-      margin: 0;
+    .players-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
 
-      li {
-        list-style: disc;
-        margin-bottom: 0.25rem;
-        color: #374151;
+      .player-card {
+        width: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        .player-photo {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          object-fit: cover;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+          margin-bottom: 0.4rem;
+        }
+
+        .player-name {
+          font-size: 0.75rem;
+          font-weight: 500;
+          color: #374151;
+        }
       }
     }
   }
 }
 
 @keyframes fadeIn {
-  0% {
+  from {
     opacity: 0;
     transform: translateY(-4px);
   }
-  100% {
+  to {
     opacity: 1;
     transform: translateY(0);
   }

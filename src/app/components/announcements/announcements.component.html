@@ -1,20 +1,15 @@
-<div class="announcement-list">
+<div class="announcements-container">
   <p-card
     *ngFor="let ann of announcements()"
     class="announcement-card"
-    header="Announcement"
-    [subheader]="(ann.createdAt | date: 'medium') ?? undefined"
+    header="📢 Announcement"
+    [subheader]="formatSubheader(ann.createdAt)"
   >
-    <div class="announcement-body">
-      <p>{{ ann.message }}</p>
-      <div class="announcement-meta">
-        <p-tag [value]="ann.sport" severity="info"></p-tag>
-        <span class="creator">Posted by: {{ ann.createdBy || 'System' }}</span>
-      </div>
+    <div class="announcement-meta">
+      <span class="sport-tag">{{ ann.sport }}</span>
+      <span class="byline">— Posted by {{ ann.createdBy || 'Admin' }}</span>
     </div>
+
+    <div class="message-content" [innerHTML]="formatMessage(ann.message)"></div>
   </p-card>
 </div>
-
-<ng-template [ngIf]="announcements().length === 0">
-  <p class="no-announcements">No announcements yet.</p>
-</ng-template>

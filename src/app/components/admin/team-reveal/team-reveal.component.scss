@@ -1,0 +1,91 @@
+.reveal-page {
+  padding: 2rem;
+  background: #111827;
+  color: #f8fafc;
+  min-height: 100vh;
+  text-align: center;
+
+  .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+
+  .reveal-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    button {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      background: #3b82f6;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      transition: transform 0.3s;
+
+      &:hover {
+        transform: scale(1.05);
+        background: #2563eb;
+      }
+
+      &:disabled {
+        background: #6b7280;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .team-name {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #facc15;
+    text-shadow: 0 2px 8px #000;
+    animation: fadeInUp 0.6s ease;
+  }
+
+  .players {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding-top: 1rem;
+
+    .player-card {
+      background: #1e293b;
+      border-radius: 12px;
+      padding: 1rem;
+      width: 140px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      animation: zoomFade 0.5s ease forwards;
+
+      img {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 0.5rem;
+      }
+
+      .player-name {
+        color: #e5e7eb;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoomFade {
+  0% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}

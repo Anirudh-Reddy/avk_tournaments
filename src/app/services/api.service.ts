@@ -45,4 +45,13 @@ export class ApiService {
   createAnnouncement(data: Partial<Announcement>): Observable<Announcement> {
     return this.http.post<Announcement>(`${this.baseUrl}/announcements`, data);
   }
+
+  uploadPhoto(photo: { image: string; caption: string }) {
+    return this.http.post(`${this.baseUrl}/photos`, photo);
+  }
+
+  getPhotos() {
+    return this.http.get<any[]>(`${this.baseUrl}/photos`);
+  }
+
 }

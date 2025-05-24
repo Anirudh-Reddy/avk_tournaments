@@ -7,6 +7,7 @@ import { AnnouncementsComponent } from './components/announcements/announcements
 import { ScoreboardComponent } from './components/scoreboard/scoreboard.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { AdminComponent } from './components/admin/admin/admin.component';
+import { GalleryComponent } from './components/gallery/gallery.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'live-score', component: LiveScoreComponent },
   { path: 'announcements', component: AnnouncementsComponent },
   { path: 'scoreboard', component: ScoreboardComponent },
-  { path: 'admin', component: AdminComponent },
-  { path: '**', component: NotFoundComponent } // catch-all
+  { path: 'aaadmin', component: AdminComponent },
+  { path: 'gallery', component: GalleryComponent },
+  { path: '**', component: NotFoundComponent }
 ];

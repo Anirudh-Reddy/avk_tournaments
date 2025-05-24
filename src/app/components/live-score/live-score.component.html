@@ -17,6 +17,9 @@
           </div>
         </div>
       </ng-container>
+      <ng-template [ngIf]="ongoingMatches().length === 0">
+      <p class="no-announcements">No ongoing matches at this time.</p>
+    </ng-template>
     </div>
   </p-tabPanel>
 
@@ -38,6 +41,9 @@
           </div>
         </div>
       </ng-container>
+       <ng-template [ngIf]="scheduledMatches().length === 0">
+      <p class="no-announcements">No scheduled matches at this time.</p>
+    </ng-template>
     </div>
   </p-tabPanel>
 
@@ -59,6 +65,9 @@
           </div>
         </div>
       </ng-container>
+       <ng-template [ngIf]="completedMatches().length === 0">
+      <p class="no-announcements">No completed matches at this time.</p>
+    </ng-template>
     </div>
   </p-tabPanel>
 
@@ -80,6 +89,12 @@
           </div>
         </div>
       </ng-container>
+       <ng-template [ngIf]="ongoingMatches().length === 0">
+      <p class="no-announcements">No cancelled matches at this time.</p>
+    </ng-template>
     </div>
   </p-tabPanel>
 </p-tabView>
+@if (showLoader) {
+<app-loading></app-loading>
+}

@@ -7,6 +7,7 @@ import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
+import { LoadingComponent } from '../../shared/loading/loading.component';
 
 @Component({
   selector: 'app-scoreboard',
@@ -17,7 +18,8 @@ import { ButtonModule } from 'primeng/button';
     TableModule,
     DropdownModule,
     TagModule,
-    ButtonModule
+    ButtonModule,
+    LoadingComponent
   ],
   templateUrl: './scoreboard.component.html',
   styleUrls: ['./scoreboard.component.scss']
@@ -27,11 +29,16 @@ export class ScoreboardComponent implements OnInit {
   selectedSport = 'Volleyball';
   viewMode: 'scoreboard' | 'summary' = 'scoreboard';
   sports = ['Volleyball', 'Cricket', 'Football'];
-
+  showLoader=false;
   constructor(private api: ApiService) {}
 
   ngOnInit(): void {
-    this.api.getMatches().subscribe(data => this.matches.set(data));
+    this.showLoader = true;
+    this.api.getMatches().subscribe({
+      next: data => {this.matches.set(data)
+        this.showLoader = false
+      }, error :()=>{this.showLoader = false}
+    });
   }
 
   filteredMatches = computed(() =>
