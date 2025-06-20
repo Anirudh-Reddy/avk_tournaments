@@ -16,7 +16,7 @@ export class TeamRevealComponent implements OnDestroy{
   teamList = {
     'Team 1' : [
       {name:'Harshal Patil', image:'players/Harshal Patil.jpeg'},
-      {name:'Aishwarya', image:'players/Aishwarya.png'},
+      {name:'Aishwarya', image:'players/Aishwarya.jpeg'},
       {name:'Kalyan Muddapu', image:'players/Kalyan Muddapu.jpg'},
       {name:'Avinash Betha', image:'players/Avinash Betha.jpeg'}
     ],
