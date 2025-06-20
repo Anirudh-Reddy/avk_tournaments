@@ -125,7 +125,7 @@ export class TeamRevealComponent implements OnDestroy{
   const audio = document.getElementById(`bgm-${index + 1}`) as HTMLAudioElement;
   if (audio) {
     audio.currentTime = 0;
-    audio.loop = false;
+    audio.loop = true;
     audio.play();
   }
 
