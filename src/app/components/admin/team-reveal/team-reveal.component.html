@@ -1,6 +1,5 @@
 <div class="reveal-page">
   <h1 class="title">AVK Grand Team Reveal 🎉</h1>
-
   <div class="reveal-buttons">
     <button
       *ngFor="let team of teams; index as i"
@@ -10,7 +9,7 @@
       🎬 Reveal {{ team.name }}
     </button>
   </div>
-
+ 
   <div class="team-display" *ngIf="activeTeamIndex !== null">
     <h2 class="team-name">{{ teams[activeTeamIndex].name }}</h2>
 
@@ -32,6 +31,20 @@
 </div>
 
 
-<audio  preload="auto" controls>
-    <source src="music/background-inspire-epic.mp3" type="audio/mpeg" />
-</audio>
+<div style="visibility: hidden;">
+  <audio id="bgm-1"  preload="auto" controls>
+      <source src="music/jd_intro.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="bgm-2"  preload="auto" controls>
+      <source src="music/salaar_bgm.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="bgm-3"  preload="auto" controls>
+      <source src="music/lokiverse.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="bgm-4"  preload="auto" controls>
+      <source src="music/Vidaamuyarchi-Bgm.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="bgm-5"  preload="auto" controls>
+    <source src="music/daaku_maharaj.mp3" type="audio/mpeg" />
+  </audio>
+</div>

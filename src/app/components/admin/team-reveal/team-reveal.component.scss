@@ -58,22 +58,24 @@
       background: #1e293b;
       border-radius: 12px;
       padding: 1rem;
-      width: 140px;
+      width: 230px;
+      height: 300px;
       text-align: center;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
       animation: zoomFade 0.5s ease forwards;
 
       img {
-        width: 90px;
-        height: 90px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-bottom: 0.5rem;
+          width: 160px;
+          height: 160px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin-bottom: 0.5rem;
+          margin-top: 10px;
       }
 
       .player-name {
         color: #e5e7eb;
-        font-size: 0.9rem;
+        font-size: 25px;
         font-weight: 500;
       }
     }
