@@ -19,7 +19,9 @@ export class AnnouncementsComponent implements OnInit {
 
   ngOnInit(): void {
     this.api.getAnnouncements().subscribe(data => {
-      this.allAnnouncements.set(data);
+      let reverseArry = data.reverse();
+      console.log('reverseArry " ',reverseArry)
+      this.allAnnouncements.set(reverseArry);
     });
   }
 
