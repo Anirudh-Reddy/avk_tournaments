@@ -17,7 +17,7 @@ export class TeamRevealComponent implements OnDestroy{
     'Team 1' : [
       {name:'Harshal Patil', image:'players/Harshal Patil.jpeg'},
       {name:'Aishwarya', image:'players/Aishwarya.jpeg'},
-      {name:'Kalyan Muddapu', image:'players/Kalyan Muddapu.jpg'},
+      {name:'Kalyan Muddapu', image:'players/Kalyan Muddapu.jpeg'},
       {name:'Avinash Betha', image:'players/Avinash Betha.jpeg'}
     ],
     'Team 2':[
@@ -28,12 +28,12 @@ export class TeamRevealComponent implements OnDestroy{
     ],
     'Team 3':[     
       {name:'Praveen Vuduthuri', image:'players/Praveen Vuduthuri.jpeg'},
-      {name:'Prathap Alluri', image:'players/Prathap Alluri.jpg'},
+      {name:'Prathap Alluri', image:'players/Prathap Alluri.jpeg'},
       {name:'Praveen Cherukuri', image:'players/Praveen Cherukuri.jpeg'},
       {name:'Chenna Malireddy', image:'players/Chenna Malireddy.jpeg'}
     ],
     'Team 4':[     
-      {name:'Rohit Suluguri', image:'players/Rohit Suluguri.jpg'},
+      {name:'Rohit Suluguri', image:'players/Rohit Suluguri.jpeg'},
       {name:'Aryan', image:'players/Aryan.jpeg'},
       {name:'Vijaya Kumar Pammina', image:'players/Vijaya Kumar Pammina.jpeg'},
       {name:'Nitin', image:'players/Nitin.jpeg'}

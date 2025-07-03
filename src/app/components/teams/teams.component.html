@@ -40,7 +40,7 @@
               [src]="getPlayerImage(player)"
               [alt]="player"
               class="player-photo"
-              onerror="this.src='assets/images/default-avatar.png'"
+               onerror="this.onerror=null; this.src='assets/players/' + player + '.jpg';"
             />
             <span class="player-name">{{ player }}</span>
           </div>

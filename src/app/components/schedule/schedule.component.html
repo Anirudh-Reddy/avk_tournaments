@@ -13,7 +13,7 @@
       <tr>
         <td>{{ getTeamName(match.teamA) }}</td>
         <td>{{ getTeamName(match.teamB) }}</td>
-        <td>{{ match.date | date: 'medium' }}</td>
+        <td>{{ match.date | date: 'MM/dd/yy hh:mm a' }}</td>
         <td><p-tag severity="info" value="{{ match.sport }}"></p-tag></td>
         <td>
           <p-tag
