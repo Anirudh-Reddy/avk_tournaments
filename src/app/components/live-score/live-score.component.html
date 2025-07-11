@@ -59,7 +59,11 @@
             <span class="team">{{ match.teamB }}</span>
             <span class="score-badge">{{ match.scoreB }}</span>
           </div>
-          <div class="status Completed">Completed</div>
+          <div class="flex align-items-center justify-content-between">
+            <div class="status Completed">Completed</div>
+            <div class="font-semibold"> {{getWinner(match)}}</div>
+        </div>
+          
           <div class="date">
             {{ formatDate(match.date) }} <span>&#64;</span> {{ formatTime(match.date) }}
           </div>

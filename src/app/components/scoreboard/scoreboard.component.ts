@@ -37,8 +37,11 @@ export class ScoreboardComponent implements OnInit {
     this.api.getMatches().subscribe({
       next: data => {this.matches.set(data)
         this.showLoader = false
+        this.getMatchCount();
+        this.getWinLossCounts();
       }, error :()=>{this.showLoader = false}
     });
+    
   }
 
   filteredMatches = computed(() =>
@@ -87,4 +90,42 @@ teamScores = computed(() => {
     const year = String(d.getFullYear()).slice(-2);
     return `${month}-${day}-${year}`;
   }
+
+   matchCounts: Record<string, number> = {};
+  getMatchCount(){
+    this.filteredMatches().forEach(match => {
+      const teamA = typeof match.teamA === 'string' ? match.teamA : match.teamA.name;
+      const teamB = typeof match.teamB === 'string' ? match.teamB : match.teamB.name;
+
+      this.matchCounts[teamA] = (this.matchCounts[teamA] || 0) + 1;
+      this.matchCounts[teamB] = (this.matchCounts[teamB] || 0) + 1;
+    });
+    console.log(this.matchCounts)
+  }
+
+  winLossCounts: Record<string, { wins: number; losses: number }> = {};
+
+getWinLossCounts() {
+  this.winLossCounts = {};
+
+  this.filteredMatches().forEach(match => {
+    const teamA = typeof match.teamA === 'string' ? match.teamA : match.teamA.name;
+    const teamB = typeof match.teamB === 'string' ? match.teamB : match.teamB.name;
+
+    if (!this.winLossCounts[teamA]) this.winLossCounts[teamA] = { wins: 0, losses: 0 };
+    if (!this.winLossCounts[teamB]) this.winLossCounts[teamB] = { wins: 0, losses: 0 };
+
+    if (match.scoreA > match.scoreB) {
+      this.winLossCounts[teamA].wins += 1;
+      this.winLossCounts[teamB].losses += 1;
+    } else if (match.scoreB > match.scoreA) {
+      this.winLossCounts[teamB].wins += 1;
+      this.winLossCounts[teamA].losses += 1;
+    }
+    // Draws do not count as win/loss
+  });
+
+  console.log(this.winLossCounts);
+}
+
 }

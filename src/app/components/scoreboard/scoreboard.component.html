@@ -52,19 +52,26 @@
   <p class="text-xl font-bold text-center">Team Standings</p>
   <table class="scoreboard-html-table">
     <thead>
-      <tr>
-        <th>#</th>
-        <th>Team</th>
-        <th>Points</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let score of teamScores(); let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ score.team }}</td>
-        <td>{{ score.points }}</td>
-      </tr>
-    </tbody>
+  <tr>
+    <th>#</th>
+    <th>Team</th>
+    <th>Points</th>
+    <th>Matches</th>
+    <th>Wins</th>
+    <th>Losses</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let score of teamScores(); let i = index">
+    <td>{{ i + 1 }}</td>
+    <td>{{ score.team }}</td>
+    <td>{{ score.points }}</td>
+    <td>{{ matchCounts[score.team] || 0 }}</td>
+    <td>{{ winLossCounts[score.team]?.wins || 0 }}</td>
+    <td>{{ winLossCounts[score.team]?.losses || 0 }}</td>
+  </tr>
+</tbody>
+
   </table>
 </div>
 

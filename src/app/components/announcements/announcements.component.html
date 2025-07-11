@@ -13,3 +13,7 @@
     <div class="message-content" [innerHTML]="formatMessage(ann.message)"></div>
   </p-card>
 </div>
+
+@if (showLoader) {
+<app-loading></app-loading>
+}

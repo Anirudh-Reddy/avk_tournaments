@@ -39,8 +39,12 @@ export class LiveScoreComponent implements OnInit {
 
   ngOnInit(): void {
     this.showLoader = true
-    this.api.getMatches().subscribe((data) => {this.matches.set(data)
+    this.api.getMatches().subscribe({
+      next:(data) => {this.matches.set(data)
       this.showLoader = false
+    },error:()=>{
+      this.showLoader = false
+    }
     });
 
     this.socketService.onScoreUpdate((updatedMatch: Match) => {
@@ -64,5 +68,15 @@ export class LiveScoreComponent implements OnInit {
       hour: 'numeric',
       minute: '2-digit'
     });
+  }
+
+  getWinner(match:any){
+    if(match.scoreA > match.scoreB){
+      return `🏅 ${match.teamA}`
+    }else if(match.scoreA < match.scoreB){
+      return `🏅 ${match.teamB}`
+    }else{
+      return 'Tie'
+    }
   }
 }

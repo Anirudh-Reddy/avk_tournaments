@@ -3,25 +3,32 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { Announcement } from '../../models/announcement.model';
 import { CardModule } from 'primeng/card';
+import { LoadingComponent } from '../../shared/loading/loading.component';
 
 @Component({
   selector: 'app-announcements',
   standalone: true,
-  imports: [CommonModule, CardModule],
+  imports: [CommonModule, CardModule, LoadingComponent],
   templateUrl: './announcements.component.html',
   styleUrls: ['./announcements.component.scss']
 })
 export class AnnouncementsComponent implements OnInit {
   private allAnnouncements = signal<Announcement[]>([]);
   announcements = computed(() => this.allAnnouncements().slice().reverse());
-
+  showLoader = false
   constructor(private api: ApiService) {}
 
   ngOnInit(): void {
-    this.api.getAnnouncements().subscribe(data => {
+    this.showLoader = true
+    this.api.getAnnouncements().subscribe({
+      next:(data) => {
       let reverseArry = data.reverse();
       console.log('reverseArry " ',reverseArry)
       this.allAnnouncements.set(reverseArry);
+      this.showLoader = false
+    },error:()=>{
+      this.showLoader = false
+    }
     });
   }
 

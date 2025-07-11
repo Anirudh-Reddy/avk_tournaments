@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-footer',
   standalone: true,
   imports: [CommonModule],
-  template: `<footer class="footer">&copy; 2025 AVK Tournaments</footer>`,
+  template: `<footer class="footer">&copy; 2025 AVK iVL Tournaments</footer>`,
   styles: [`
     .footer {
       text-align: center;

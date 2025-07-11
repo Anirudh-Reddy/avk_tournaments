@@ -51,7 +51,7 @@ export class TeamsComponent implements OnInit {
 
   getPlayerImage(playerName: string): string {
     const safeName = playerName.toLowerCase().replace(/ /g, '-');
-    return `players/image.png`;
-    // return  `players/${safeName}.jpg`;
+    // return `players/image.png`;
+    return  `players/${playerName}.jpeg`;
   }
 }

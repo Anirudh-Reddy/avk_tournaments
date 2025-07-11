@@ -9,6 +9,7 @@ import { MessageService } from 'primeng/api';
 import { Match } from '../../../models/match.model';
 import { ApiService } from '../../../services/api.service';
 import { SocketService } from '../../../services/socket.service';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
 
 @Component({
   selector: 'app-update-score',
@@ -19,7 +20,8 @@ import { SocketService } from '../../../services/socket.service';
     DropdownModule,
     InputNumberModule,
     ButtonModule,
-    ToastModule
+    ToastModule,
+    LoadingComponent
   ],
   providers: [MessageService],
   templateUrl: './update-score.component.html',
@@ -32,7 +34,7 @@ export class UpdateScoreComponent implements OnInit {
 
   sports = ['Volleyball', 'Cricket', 'Football'];
   selectedSport = 'Volleyball';
-
+  showLoader:boolean=false
   constructor(
     private api: ApiService,
     private socket: SocketService,
@@ -40,7 +42,9 @@ export class UpdateScoreComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.api.getMatches().subscribe(data => {
+    this.showLoader = true
+    this.api.getMatches().subscribe({
+      next: data => {
       const labeledMatches = data.map(match => ({
         ...match,
         label: `${this.getName(match.teamA)} vs ${this.getName(match.teamB)} | ${this.formatDate(match.date)} | ${match.status}`
@@ -48,6 +52,10 @@ export class UpdateScoreComponent implements OnInit {
 
       this.matches.set(labeledMatches);
       this.filterMatches(); // initial filtering
+      this.showLoader = false
+    },error:()=>{
+      this.showLoader = false
+    }
     });
   }
 
@@ -75,8 +83,9 @@ export class UpdateScoreComponent implements OnInit {
   updateScore() {
     if (this.selectedMatch && this.selectedMatch._id) {
       const { _id, scoreA, scoreB, status } = this.selectedMatch;
-
-      this.api.updateMatchScore(_id, scoreA ?? 0, scoreB ?? 0, status).subscribe(updated => {
+      this.showLoader = true
+      this.api.updateMatchScore(_id, scoreA ?? 0, scoreB ?? 0, status).subscribe({
+        next:updated => {
         this.toast.add({
           severity: 'success',
           summary: 'Score Updated',
@@ -84,8 +93,12 @@ export class UpdateScoreComponent implements OnInit {
         });
 
         this.socket.emitScoreUpdate(updated);
-        this.selectedMatch = null;
-        this.filterMatches(); // refresh filtered list
+        this.showLoader = false
+        // this.selectedMatch = null;
+        // this.filterMatches(); // refresh filtered list
+      }, error:()=>{
+        this.showLoader = false
+      }
       });
     }
   }
