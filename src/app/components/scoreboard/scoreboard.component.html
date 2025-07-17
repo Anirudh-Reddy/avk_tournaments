@@ -55,8 +55,8 @@
   <tr>
     <th>#</th>
     <th>Team</th>
-    <th>P</th>
     <th>M</th>
+    <th>P</th>
     <th>W</th>
     <th>L</th>
   </tr>
@@ -65,8 +65,8 @@
   <tr *ngFor="let score of teamScores(); let i = index">
     <td>{{ i + 1 }}</td>
     <td>{{ score.team }}</td>
-    <td>{{ score.points }}</td>
     <td>{{ matchCounts[score.team] || 0 }}</td>
+    <td>{{ score.points }}</td>
     <td>{{ winLossCounts[score.team]?.wins || 0 }}</td>
     <td>{{ winLossCounts[score.team]?.losses || 0 }}</td>
   </tr>
