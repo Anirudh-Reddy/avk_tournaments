@@ -21,7 +21,8 @@
           <th>P</th>
           <th>W</th>
           <th>L</th>
-          <th>Net Rate</th>
+          <th>Avg Score</th>
+          <!-- <th>Avg %</th> -->
         </tr>
       </thead>
       <tbody>
@@ -33,12 +34,13 @@
           <td>{{ score.wins }}</td>
           <td>{{ score.losses }}</td>
           <td>{{ score.averageScore | number:'1.1-2' }}</td>
+          <!-- <td>{{ score.averagePercentage | number:'1.0-1' }}%</td> -->
         </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- 📋 Full Match Summary (optional toggle view) -->
+  <!-- 📋 Full Match Summary (Optional View) -->
   <p-table
     *ngIf="viewMode === 'summary'"
     [value]="filteredMatches()"

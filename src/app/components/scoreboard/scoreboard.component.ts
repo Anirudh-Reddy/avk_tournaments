@@ -92,11 +92,16 @@ export class ScoreboardComponent implements OnInit {
     });
 
     return Object.entries(teamStats)
-      .map(([team, stats]) => ({
-        team,
-        ...stats,
-        averageScore: stats.matches ? stats.totalScore / stats.matches : 0
-      }))
+      .map(([team, stats]) => {
+        const avg = stats.matches ? stats.totalScore / stats.matches : 0;
+        const avgPercent = avg ? (avg / 25) * 100 : 0;
+        return {
+          team,
+          ...stats,
+          averageScore: avg,
+          averagePercentage: avgPercent
+        };
+      })
       .sort((a, b) => {
         if (b.wins !== a.wins) return b.wins - a.wins;
         return b.averageScore - a.averageScore;
