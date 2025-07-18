@@ -7,77 +7,38 @@
       (onChange)="filterMatches()"
       class="sport-dropdown"
     ></p-dropdown>
-
-    <!-- <div class="view-toggle">
-      <button
-        pButton
-        label="Scoreboard"
-        (click)="viewMode = 'scoreboard'"
-        [class.active]="viewMode === 'scoreboard'"
-        class="p-button-sm"
-      ></button>
-      <button
-        pButton
-        label="Full Summary"
-        (click)="viewMode = 'summary'"
-        [class.active]="viewMode === 'summary'"
-        class="p-button-sm"
-      ></button>
-    </div> -->
   </div>
 
-  <!-- 🟢 Scoreboard view -->
-  <!-- <p-table
-  *ngIf="viewMode === 'scoreboard'"
-  [value]="teamScores()"
-  [paginator]="false"
-  responsiveLayout="scroll"
-  sortMode="multiple"
->
-  <ng-template pTemplate="header">
-    <tr>
-      <th pSortableColumn="team">Team <p-sortIcon field="team" /></th>
-      <th pSortableColumn="points">Points <p-sortIcon field="points" /></th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-score>
-    <tr>
-      <td>{{ score.team }}</td>
-      <td>{{ score.points }}</td>
-    </tr>
-  </ng-template>
-</p-table> -->
+  <!-- 🏆 Team Standings -->
+  <div class="scoreboard-wrapper">
+    <p class="text-xl font-bold text-center">Team Standings</p>
+    <table class="scoreboard-html-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Team</th>
+          <th>M</th>
+          <th>P</th>
+          <th>W</th>
+          <th>L</th>
+          <th>Net Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let score of teamScores(); let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ score.team }}</td>
+          <td>{{ score.matches }}</td>
+          <td>{{ score.points }}</td>
+          <td>{{ score.wins }}</td>
+          <td>{{ score.losses }}</td>
+          <td>{{ score.averageScore | number:'1.1-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-<div class="scoreboard-wrapper">
-  <p class="text-xl font-bold text-center">Team Standings</p>
-  <table class="scoreboard-html-table">
-    <thead>
-  <tr>
-    <th>#</th>
-    <th>Team</th>
-    <th>M</th>
-    <th>P</th>
-    <th>W</th>
-    <th>L</th>
-  </tr>
-</thead>
-<tbody>
-  <tr *ngFor="let score of teamScores(); let i = index">
-    <td>{{ i + 1 }}</td>
-    <td>{{ score.team }}</td>
-    <td>{{ matchCounts[score.team] || 0 }}</td>
-    <td>{{ score.points }}</td>
-    <td>{{ winLossCounts[score.team]?.wins || 0 }}</td>
-    <td>{{ winLossCounts[score.team]?.losses || 0 }}</td>
-  </tr>
-</tbody>
-
-  </table>
-</div>
-
-
-
-  <!-- 📋 Full Summary view -->
+  <!-- 📋 Full Match Summary (optional toggle view) -->
   <p-table
     *ngIf="viewMode === 'summary'"
     [value]="filteredMatches()"
@@ -110,5 +71,5 @@
 </div>
 
 @if (showLoader) {
-<app-loading></app-loading>
+  <app-loading></app-loading>
 }

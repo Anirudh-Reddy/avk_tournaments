@@ -29,19 +29,21 @@ export class ScoreboardComponent implements OnInit {
   selectedSport = 'Volleyball';
   viewMode: 'scoreboard' | 'summary' = 'scoreboard';
   sports = ['Volleyball', 'Cricket', 'Football'];
-  showLoader=false;
+  showLoader = false;
+
   constructor(private api: ApiService) {}
 
   ngOnInit(): void {
     this.showLoader = true;
     this.api.getMatches().subscribe({
-      next: data => {this.matches.set(data)
-        this.showLoader = false
-        this.getMatchCount();
-        this.getWinLossCounts();
-      }, error :()=>{this.showLoader = false}
+      next: data => {
+        this.matches.set(data);
+        this.showLoader = false;
+      },
+      error: () => {
+        this.showLoader = false;
+      }
     });
-    
   }
 
   filteredMatches = computed(() =>
@@ -50,34 +52,56 @@ export class ScoreboardComponent implements OnInit {
     )
   );
 
-  // Scoreboard table: Aggregated points per team
-teamScores = computed(() => {
-  const pointsMap: Record<string, number> = {};
+  teamScores = computed(() => {
+    const teamStats: Record<string, {
+      wins: number;
+      losses: number;
+      matches: number;
+      totalScore: number;
+      points: number;
+    }> = {};
 
-  this.filteredMatches().forEach(match => {
-    const teamA = typeof match.teamA === 'string' ? match.teamA : match.teamA.name;
-    const teamB = typeof match.teamB === 'string' ? match.teamB : match.teamB.name;
+    this.filteredMatches().forEach(match => {
+      const teamA = typeof match.teamA === 'string' ? match.teamA : match.teamA.name;
+      const teamB = typeof match.teamB === 'string' ? match.teamB : match.teamB.name;
 
-    if (!pointsMap[teamA]) pointsMap[teamA] = 0;
-    if (!pointsMap[teamB]) pointsMap[teamB] = 0;
+      const init = { wins: 0, losses: 0, matches: 0, totalScore: 0, points: 0 };
+      teamStats[teamA] = teamStats[teamA] || { ...init };
+      teamStats[teamB] = teamStats[teamB] || { ...init };
 
-    if (match.scoreA > match.scoreB) {
-      pointsMap[teamA] += 2;
-    } else if (match.scoreB > match.scoreA) {
-      pointsMap[teamB] += 2;
-    } else {
-      pointsMap[teamA] += 1;
-      pointsMap[teamB] += 1;
-    }
+      // Update match count
+      teamStats[teamA].matches += 1;
+      teamStats[teamB].matches += 1;
+
+      // Update total scores
+      teamStats[teamA].totalScore += match.scoreA;
+      teamStats[teamB].totalScore += match.scoreB;
+
+      if (match.scoreA > match.scoreB) {
+        teamStats[teamA].wins += 1;
+        teamStats[teamB].losses += 1;
+        teamStats[teamA].points += 2;
+      } else if (match.scoreB > match.scoreA) {
+        teamStats[teamB].wins += 1;
+        teamStats[teamA].losses += 1;
+        teamStats[teamB].points += 2;
+      } else {
+        teamStats[teamA].points += 1;
+        teamStats[teamB].points += 1;
+      }
+    });
+
+    return Object.entries(teamStats)
+      .map(([team, stats]) => ({
+        team,
+        ...stats,
+        averageScore: stats.matches ? stats.totalScore / stats.matches : 0
+      }))
+      .sort((a, b) => {
+        if (b.wins !== a.wins) return b.wins - a.wins;
+        return b.averageScore - a.averageScore;
+      });
   });
-
-  // 🔽 Sort by points descending
-  return Object.entries(pointsMap)
-    .map(([team, points]) => ({ team, points }))
-    .sort((a, b) => b.points - a.points);
-});
-
-
 
   filterMatches() {
     this.matches.set([...this.matches()]);
@@ -90,42 +114,4 @@ teamScores = computed(() => {
     const year = String(d.getFullYear()).slice(-2);
     return `${month}-${day}-${year}`;
   }
-
-   matchCounts: Record<string, number> = {};
-  getMatchCount(){
-    this.filteredMatches().forEach(match => {
-      const teamA = typeof match.teamA === 'string' ? match.teamA : match.teamA.name;
-      const teamB = typeof match.teamB === 'string' ? match.teamB : match.teamB.name;
-
-      this.matchCounts[teamA] = (this.matchCounts[teamA] || 0) + 1;
-      this.matchCounts[teamB] = (this.matchCounts[teamB] || 0) + 1;
-    });
-    console.log(this.matchCounts)
-  }
-
-  winLossCounts: Record<string, { wins: number; losses: number }> = {};
-
-getWinLossCounts() {
-  this.winLossCounts = {};
-
-  this.filteredMatches().forEach(match => {
-    const teamA = typeof match.teamA === 'string' ? match.teamA : match.teamA.name;
-    const teamB = typeof match.teamB === 'string' ? match.teamB : match.teamB.name;
-
-    if (!this.winLossCounts[teamA]) this.winLossCounts[teamA] = { wins: 0, losses: 0 };
-    if (!this.winLossCounts[teamB]) this.winLossCounts[teamB] = { wins: 0, losses: 0 };
-
-    if (match.scoreA > match.scoreB) {
-      this.winLossCounts[teamA].wins += 1;
-      this.winLossCounts[teamB].losses += 1;
-    } else if (match.scoreB > match.scoreA) {
-      this.winLossCounts[teamB].wins += 1;
-      this.winLossCounts[teamA].losses += 1;
-    }
-    // Draws do not count as win/loss
-  });
-
-  console.log(this.winLossCounts);
-}
-
 }
